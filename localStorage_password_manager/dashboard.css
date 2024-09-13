@@ -1,0 +1,301 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+}
+.hidden{
+    display:none;
+}
+#box{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255,255, 0.1);
+}
+#messageBox{
+    margin: 0px auto;
+    width: 45%;
+    background-color: crimson;
+    border-radius: 20px;
+    padding: 40px 10px 10px 10px;
+    text-align: center;
+}
+#message{
+    color: #FFF;
+    font-weight: bolder;
+}
+#buttons{
+   margin-top: 40px;
+   text-align: right;
+   padding: 0 10px;
+}
+#close{
+   background-color: #FFF;
+   border-radius: 30px;
+   padding: 12px 20px;
+   color: crimson;
+}
+#close:hover{
+    background-color: #EEE;
+   
+ }
+#ok{
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 10px 30px;
+    color: white;
+    border: 1px solid white;
+ }
+ #ok:hover{
+    background-color: #FFF;
+    color: crimson;
+   
+ }
+#dialog{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255,255, 0.1);
+}
+#dialogBox{
+    margin: 0px auto;
+    width: 45%;
+    background-color: crimson;
+    border-radius: 20px;
+    padding: 40px 10px 10px 10px;
+    text-align: center;
+}
+#question{
+    color: #FFF;
+    font-weight: bolder;
+}
+#header{
+    background-color: #FFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    width: 100%;
+    position: fixed;
+    top:0;
+    border-bottom: 1px solid crimson;
+}
+#header nav *{
+    padding: 10px 15px;
+}
+#header nav a{
+    color: crimson;
+    cursor: pointer;
+}
+#header nav a:hover{
+    background-color: crimson;
+    color: white;
+}
+#header nav a:focus{
+    background-color: crimson;
+    color: white;
+}
+#header nav a:active{
+    background-color: crimson;
+    color: white;
+}
+
+#header button{
+    background-color: transparent;
+    color: crimson;
+    padding: 5px;
+    border: 1px solid crimson;
+}
+#header button:hover{
+    background-color: crimson;
+    color: white;
+    
+}
+#header button:active{
+     background-color: crimson;
+    color: white;
+    
+}
+#header button:focus{
+    background-color: crimson;
+    color: white;
+    
+}
+#header input{
+    background-color: transparent;
+    color: crimson;
+    border: 1px solid crimson;
+}
+#header input:hover{
+    border: 1px solid #ccc;
+    
+}
+#header input:active{
+    border: 1px solid #ccc;
+    
+}
+#header input:focus{
+    border: 1px solid #ccc;
+    
+}
+#container{
+    width: 100%;
+}
+#aside{
+    background-color: white;
+    width: 20%;
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+    padding-bottom: 20px;
+    border-right: 1px solid crimson;
+}
+#aside h1{
+    color: crimson;
+    width: 100%;
+    padding: 20px 0px;
+    font-weight: bolder;
+    text-align: center;
+
+}
+#aside div{
+    width: 100%;
+    text-align: center;
+}
+#aside div p{
+    color: crimson;
+    margin-bottom: 3px;
+    font-weight: bolder;
+}
+#aside div button{
+    background-color: transparent;
+    color: crimson;
+    width: 80%;
+    margin: 5px 10%;
+    padding: 5px;
+    border: 1px solid crimson;
+}
+#aside div button:hover{
+    background-color: crimson;
+    color: white;
+    
+}
+#aside div button:active{
+    background-color: crimson;
+    color: white;
+    
+}
+#aside div button:focus{
+    background-color: crimson;
+    color: white;
+    
+}
+
+#main{
+    width: 80%;
+    margin-left: 20%;
+    margin-top: 70px;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+#paginator{
+    text-align: right;
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+}
+#paginator a{
+    margin-left: 15px;
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid crimson;
+    transition: 2s;
+    color: crimson;
+}
+#paginator a:hover{
+    transform: scale(1.5);
+}
+#main ul{
+    margin: 10px 5px;
+}
+#main ul li{
+    list-style-type: none;
+    margin-bottom: 10px;
+    border: 1px solid crimson;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+#main ul li div *{
+    display: block;
+    margin-bottom: 5px;
+    color: crimson;
+}
+#main ul li div label *{
+    display: inline;
+}
+#main ul li div label input:disabled{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+#main ul li div a{
+    color: royalblue;
+    font-weight: bolder;
+}
+#main ul li div a:hover{
+    color: blue;
+}
+
+#main ul li div strong{
+    color: royalblue;
+}
+#main > h1{
+    color: royalblue;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+#main form{
+    width: 100%;
+}
+#main form label{
+    width: 100%;
+    margin: 10px 0px;
+    display: block;
+}
+#main form input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border:1px solid crimson;
+    color: crimson;
+}
+#main form input:hover{
+    border:1px solid #CCC;
+}
+#main form input:focus{
+    border:1px solid #CCC;
+}
+#main form input:active{
+    border:1px solid #CCC;
+}

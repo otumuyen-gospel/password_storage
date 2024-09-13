@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>password_manager</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="dashboard.css"/>
+        <script src="dashboard.js" defer></script>
+    </head>
+    <body>
+        <div id="header">
+            <nav>
+                <a href="">Add</a>
+                <a href="">Lists</a>
+                <input type="text" placeholder="enter search term" required>
+                <input type="submit" value="Search">
+            </nav>
+            <button>Log out</button>
+        </div>
+        <div id="container">
+            <div id="aside">
+                <h1>DASHBOARD</h1>
+                <div>
+                    <p>Danger zone</p>
+                    <button>Delete All Record</button>
+                    <button>Delete Account</button>
+                    <button>Account Settings</button>
+                </div>
+                <div>
+                    <p>Backup / Recovery zone</p>
+                    <button>Export Data</button>
+                    <button>Import Data</button>
+                </div>
+               
+            </div>
+            <div id="main">
+                
+            </div>
+            <div id="box" class="hidden">
+                <div id="messageBox">
+                   <p id="message"></p>
+                   <div id="buttons">
+                      <button id="close">Cancel</button>
+                   </div>
+                </div>
+             </div>
+             <div id="dialog" class="hidden">
+                <div id="dialogBox">
+                   <p id="question"></p>
+                   <div id="buttons">
+                    <button id="ok">Ok</button>
+                      <button id="close">Cancel</button>
+                   </div>
+                </div>
+             </div>
+        </div>
+    </body>
+</html>
