@@ -12,10 +12,12 @@ const searchTextField = formFields[0];
 const asideBtn = document.querySelectorAll("#aside button");
 const deleteAllBtn = asideBtn[0];
 const deleteAccountBtn = asideBtn[1];
-const exportBtn = asideBtn[2];
-const importBtn = asideBtn[3];
+const changePasswordBtn = asideBtn[2];
+const exportBtn = asideBtn[3];
+const importBtn = asideBtn[4];
 let cursor = 0; // fetch starting point
 let limit = 3; // fetch only 3 items
+let searchTerm = "";
 dashboardView();
 
 /*user interface views */
@@ -25,27 +27,121 @@ function dashboardView(){
     notLoggedIn();
     logoutBtn.addEventListener("click", logout);
     addBtn.addEventListener("click", (e)=>{e.preventDefault();addView();});
-    listBtn.addEventListener("click", (e)=>{e.preventDefault();ListView();});
+    listBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        cursor = 0; 
+        searchTerm = "";
+        ListView();
+    });
     deleteAllBtn.addEventListener("click", ()=>{
         showDialogBox("Are you sure?. this operation will delete all your saved password", deleteAll);
     });
     deleteAccountBtn.addEventListener("click", ()=>{
         showDialogBox("Are you sure?. this operation will delete all your account details", deleteAccount); 
     });
+    changePasswordBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        accountView();
+   });
     
-    /*
-    formFields.addEventListener("keydown", (e)=>{
+    searchTextField.addEventListener("keydown", (e)=>{
         if(e.key === "Enter"){
-            search(formFields.value);
-            searchBtn.disabled = true;
+            if(searchTextField.value !== ""){
+                cursor = 0; 
+                searchTerm = searchTextField.value;
+                searchBtn.disabled = true;
+                searchTextField.disabled = true;
+                lists();
+
+            }else{
+                showMessageBox("please your search term must not be empty");
+            }
+           
         }
     });
     searchBtn.addEventListener("click", ()=>{
-        search(formFields.value);
-        searchBtn.disabled = true;
-    }) */
+        if(searchTextField.value !== ""){
+            cursor = 0; 
+            searchTerm = searchTextField.value;
+            searchBtn.disabled = true;
+            searchTextField.disabled = true;
+            lists();
+
+        }else{
+            showMessageBox("please your search term must not be empty");
+        }
+    }) ;
     ListView();
      
+}
+function accountView(){
+    main.innerHTML = `
+    <h1> CHANGE YOUR PASSWORD<h1>
+     <form id="change">
+        <label>OLD PASSWORD
+            <input type="password" id="former" required/>
+        </label>
+        <label>PASSWORD
+            <input type="password" id="password" required/>
+             <input type="text" id="revealed" class="hidden"/>
+        </label>
+        <label>CONFIRM
+            <input type="password" id="confirm" required/>
+        </label>
+        <label>GENERATE PASSWORD | REVEAL PASSWORD
+            <input type="button" id="generate" value="GENERATE"/>
+            <input type="button" id="reveal" value="REVEAL"/>
+        </label>
+        <label>
+            <input type="submit" value="CHANGE">
+        </label>
+    </form>`;
+    change = document.getElementById("change");
+    change.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const former = document.getElementById("former").value;
+        const passwordInput = document.getElementById("password");
+        const revealInput = document.getElementById("reveal");
+        let password = "";
+        if(passwordInput){
+            password = passwordInput.value;
+        }else if(revealInput){
+            password = revealInput.value;
+        }
+        const confirm = document.getElementById("confirm").value;
+        changePassword(former, password, reveal, confirm);
+    });
+    const generate = document.getElementById("generate");
+    generate.addEventListener("click", (e)=>{
+        e.preventDefault();
+        let password = generatePassword();
+        const passwordInput = document.getElementById("password");
+        if(passwordInput){
+            passwordInput.value= password;
+        }
+        document.getElementById("confirm").value = password;
+        const revealInput = document.getElementById("revealed");
+        if(revealInput){
+            revealInput.value = password;
+        }
+    });
+    const reveal = document.getElementById("reveal");
+    reveal.addEventListener("click", (e)=>{
+        e.preventDefault();
+        const revealed = document.getElementById("revealed");
+       const password =  document.getElementById("password");
+       if(reveal.value !== "HIDE"){
+         if(password.value !== "" && password){
+            revealed.classList.toggle("hidden");
+            revealed.value = password.value;
+            password.classList.toggle("hidden");
+            reveal.value = "HIDE";
+          }
+       }else{
+        revealed.classList.toggle("hidden");
+        password.classList.toggle("hidden");
+       }
+    });
 }
 function ListView(){
     const list = `<ul id="list"></ul> 
@@ -67,6 +163,27 @@ function generatePassword(){
         password += data.charAt(Math.floor(Math.random() * data.length));
     }
     return password;
+}
+function changePassword(former, password, reveal, confirm){
+    let isUser = false;
+    for(const user of users ){
+        if(user.password === former && user.id === session[0].id){
+            isUser = true;
+            if(password === confirm){
+                user.password = password;
+                localStorage.setItem("identity", JSON.stringify(users));
+                showMessageBox("password Change successfully");
+                
+            }else{
+                showMessageBox("comfirm password");
+            }
+            break;
+        }
+    }
+    if(!isUser){
+        showMessageBox("you don't have access to this account");
+        logout();
+    }
 }
 function addView(){
     let user_id = database.length > 0 ? parseInt(database[database.length - 1].id) : 0;
@@ -324,7 +441,11 @@ function lists(){
     let count = 0;
     for(let data = cursor; data < database.length ; data++){
         const dataObj = database[data];
-        if(dataObj["owner"] === session[0].id){
+        if(dataObj["owner"] === session[0].id && dataObj["username"].toLowerCase().includes(searchTerm.toLowerCase())
+            || dataObj["owner"] === session[0].id && dataObj["domain"].toLowerCase().includes(searchTerm.toLowerCase())
+            || dataObj["owner"] === session[0].id && dataObj["description"].toLowerCase().includes(searchTerm.toLowerCase())
+            || dataObj["owner"] === session[0].id && searchTerm === ""
+        ){
                 count += 1; //found an item
                 const listItem = `<li>
                     <div class="col-1">
@@ -351,6 +472,8 @@ function lists(){
         }
         
     }
+    searchBtn.disabled = false;
+    searchTextField.disabled = false;
     if(count === 0){ //meaning no data was fetched show end label or banner
         showMessageBox("THE END");
     }
@@ -393,9 +516,6 @@ function deleteAll(){
     showMessageBox("Data Deletion succeeded!!!");
     localStorage.setItem("database",JSON.stringify(database));
     ListView();
-}
-function search(terms){
-
 }
 function deleteAccount(){
      //delete data
