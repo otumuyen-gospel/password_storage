@@ -3,6 +3,7 @@ const main = document.getElementById("main");
 const session = JSON.parse(localStorage.getItem("session")) || [];
 let database = JSON.parse(localStorage.getItem("database")) || [];
 let users = JSON.parse(localStorage.getItem("identity")) || [];
+let searchList = [];
 const logoutBtn = document.querySelector("#header button");
 const addBtn = document.querySelectorAll("#header a")[0];
 const listBtn = document.querySelectorAll("#header a")[1];
@@ -51,6 +52,7 @@ function dashboardView(){
                 searchTerm = searchTextField.value;
                 searchBtn.disabled = true;
                 searchTextField.disabled = true;
+                search();
                 lists();
 
             }else{
@@ -65,6 +67,7 @@ function dashboardView(){
             searchTerm = searchTextField.value;
             searchBtn.disabled = true;
             searchTextField.disabled = true;
+            search();
             lists();
 
         }else{
@@ -144,6 +147,8 @@ function accountView(){
     });
 }
 function ListView(){
+    database = JSON.parse(localStorage.getItem("database")) || [];
+    searchList = [];
     const list = `<ul id="list"></ul> 
     <div id="paginator">
      <a href="Javascript:prev()">Prev</a>
@@ -434,28 +439,36 @@ function prev(){
         cursor += limit;
     }
 }
-
+function search(){
+    for(const data of database){
+        if(data.owner === session[0].id && data.username.toLowerCase().includes(searchTerm.toLowerCase())
+            || data.owner === session[0].id && data.domain.toLowerCase().includes(searchTerm.toLowerCase())
+            || data.owner === session[0].id && data.description.toLowerCase().includes(searchTerm.toLowerCase())
+        ){
+            searchList.push(data);
+        }
+    }
+    if(searchList.length !== 0){
+         database = searchList;
+    }
+}
 function lists(){
     const list = document.getElementById("list");
     list.innerHTML = "";
     let count = 0;
     for(let data = cursor; data < database.length ; data++){
         const dataObj = database[data];
-        if(dataObj["owner"] === session[0].id && dataObj["username"].toLowerCase().includes(searchTerm.toLowerCase())
-            || dataObj["owner"] === session[0].id && dataObj["domain"].toLowerCase().includes(searchTerm.toLowerCase())
-            || dataObj["owner"] === session[0].id && dataObj["description"].toLowerCase().includes(searchTerm.toLowerCase())
-            || dataObj["owner"] === session[0].id && searchTerm === ""
-        ){
+        if(dataObj["owner"] === session[0].id){
                 count += 1; //found an item
                 const listItem = `<li>
                     <div class="col-1">
                        <strong>ID: ${dataObj["id"]}</strong>
                        <span>OWNER: ${dataObj["owner"]}</span>
+                       <span>USERNAME: ${dataObj["username"]}</span>
                    </div>
                    <div class="col-2">
-                       <strong>DOMAIN: ${dataObj["domain"]}</strong>
-                       <span>USERNAME: ${dataObj["username"]}</span>
                        <label>PASSWORD: <input type="password" value="${dataObj['password']}" disabled/></label>
+                       <strong>DOMAIN: ${dataObj["domain"]}</strong>
                        <p>${dataObj["description"]}</p>
                     </div>
                     <div class="col-3">
@@ -474,10 +487,9 @@ function lists(){
     }
     searchBtn.disabled = false;
     searchTextField.disabled = false;
-    if(count === 0){ //meaning no data was fetched show end label or banner
-        showMessageBox("THE END");
+    if(list.innerHTML === ""){
+        showMessageBox("No results found");
     }
-
 }
 
 function edit(index, id, owner, domain, username, password, confirm, description){
@@ -509,13 +521,19 @@ function deleteAll(){
         dataObj = database[data];
         if(dataObj["owner"] !== session[0].id){
             arr.push(dataObj);       
+        }else{
+            count += 1; //count how many database entry record in this account
         }
     }
-    database = [];
-    database = arr;
-    showMessageBox("Data Deletion succeeded!!!");
-    localStorage.setItem("database",JSON.stringify(database));
-    ListView();
+    if(count === 0){ // no record tied to this account in the database
+        showMessageBox("You don't have any data record to  delete!!!");
+        return;
+    }else{
+        database = [];
+        database = arr;
+        localStorage.setItem("database",JSON.stringify(database));
+        ListView();
+    }
 }
 function deleteAccount(){
      //delete data

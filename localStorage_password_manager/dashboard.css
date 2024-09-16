@@ -1,3 +1,10 @@
+:root{
+    --color1:royalblue;
+    --color3:grey;
+    --bg-color1:#115;
+    --bg-color2:#116;
+
+}
 *{
     margin: 0;
     padding: 0;
@@ -6,6 +13,9 @@
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 15px;
+}
+body{
+    background-color: var(--bg-color2);
 }
 .hidden{
     display:none;
@@ -17,18 +27,19 @@
     left: 0;
     bottom: 0;
     z-index: 1000;
-    background-color: rgba(255, 255,255, 0.1);
+    background-color: rgba(255, 255,255, 0.01);
 }
 #messageBox{
     margin: 0px auto;
     width: 45%;
-    background-color: crimson;
+    background-color: var(--bg-color2);
     border-radius: 20px;
     padding: 40px 10px 10px 10px;
     text-align: center;
+    border: 1px solid var(--color1);
 }
 #message{
-    color: #FFF;
+    color: var(--color1);
     font-weight: bolder;
 }
 #buttons{
@@ -37,24 +48,24 @@
    padding: 0 10px;
 }
 #close{
-   background-color: #FFF;
+   background-color: var(--bg-color1);
    border-radius: 30px;
    padding: 12px 20px;
    color: crimson;
 }
 #close:hover{
-    background-color: #EEE;
+    background-color: var(--bg-color2);
    
  }
 #ok{
     background-color: transparent;
     border-radius: 30px;
     padding: 10px 30px;
-    color: white;
-    border: 1px solid white;
+    color: var(--color1);
+    border: 1px solid var(--color1);
  }
  #ok:hover{
-    background-color: #FFF;
+    background-color: var(--color1);
     color: crimson;
    
  }
@@ -65,22 +76,23 @@
     left: 0;
     bottom: 0;
     z-index: 1000;
-    background-color: rgba(255, 255,255, 0.1);
+    background-color: rgba(255, 255,255, 0.01);
 }
 #dialogBox{
     margin: 0px auto;
     width: 45%;
-    background-color: crimson;
+    background-color: var(--bg-color2);
     border-radius: 20px;
     padding: 40px 10px 10px 10px;
     text-align: center;
+    border: 1px solid var(--color1);
 }
 #question{
-    color: #FFF;
+    color: var(--color1);
     font-weight: bolder;
 }
 #header{
-    background-color: #FFF;
+    background-color: var(--bg-color1);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -95,78 +107,78 @@
     padding: 10px 15px;
 }
 #header nav a{
-    color: crimson;
+    color: var(--color3);
     cursor: pointer;
 }
 #header nav a:hover{
-    background-color: crimson;
+    background-color: var(--bg-color2);
     color: white;
 }
 #header nav a:focus{
-    background-color: crimson;
+    background-color: var(--bg-color2);
     color: white;
 }
 #header nav a:active{
-    background-color: crimson;
+    background-color: var(--bg-color2);
     color: white;
 }
 
 #header button{
     background-color: transparent;
-    color: crimson;
+    color: var(--color3);
     padding: 5px;
-    border: 1px solid crimson;
+    border: 1px solid  var(--color3);
 }
 #header button:hover{
-    background-color: crimson;
-    color: white;
+    border: 1px solid  var(--color3);
+    color: var(--color3);
     
 }
 #header button:active{
-     background-color: crimson;
-    color: white;
+    border: 1px solid  var(--color3);
+    color: var(--color3);
     
 }
 #header button:focus{
-    background-color: crimson;
-    color: white;
+    border: 1px solid  var(--color3);
+    color: var(--color3);
     
 }
 #header input{
     background-color: transparent;
-    color: crimson;
-    border: 1px solid crimson;
+    color: var(--color3);
+    border: 1px solid var(--color3);
 }
 #header input:hover{
-    border: 1px solid #ccc;
+    border: 1px solid  var(--color1);
     
 }
 #header input:active{
-    border: 1px solid #ccc;
+    border: 1px solid  var(--color1);
     
 }
 #header input:focus{
-    border: 1px solid #ccc;
+    border: 1px solid  var(--color1);
     
 }
 #container{
     width: 100%;
 }
 #aside{
-    background-color: white;
+    background-color: var(--bg-color2);
     width: 20%;
     position: fixed;
-    top: 70px;
+    top: 68px;
     bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items:center;
     padding-bottom: 20px;
-    border-right: 1px solid crimson;
+    border-right: 1px solid var(--color3);
 }
 #aside h1{
-    color: crimson;
+    color: var(--color3);
     width: 100%;
     padding: 20px 0px;
     font-weight: bolder;
@@ -178,38 +190,38 @@
     text-align: center;
 }
 #aside div p{
-    color: crimson;
+    color: var(--color3);
     margin-bottom: 3px;
     font-weight: bolder;
 }
 #aside div button{
     background-color: transparent;
-    color: crimson;
+    color: var(--color3);
     width: 80%;
     margin: 5px 10%;
     padding: 5px;
-    border: 1px solid crimson;
+    border: 1px solid var(--color3);
 }
 #aside div button:hover{
-    background-color: crimson;
-    color: white;
+    border: 1px solid var(--color1);
+    color: var(--color1);
     
 }
 #aside div button:active{
-    background-color: crimson;
-    color: white;
+    border: 1px solid var(--color1);
+    color: var(--color1);
     
 }
 #aside div button:focus{
-    background-color: crimson;
-    color: white;
+    border: 1px solid var(--color1);
+    color: var(--color1);
     
 }
 
 #main{
     width: 80%;
     margin-left: 20%;
-    margin-top: 70px;
+    margin-top: 68px;
     padding: 0px 10px;
     display: flex;
     flex-direction: column;
@@ -225,9 +237,9 @@
     margin-left: 15px;
     display: inline-block;
     padding: 5px;
-    border: 1px solid crimson;
+    border: 1px solid var(--color3);
     transition: 2s;
-    color: crimson;
+    color: var(--color3);
 }
 #paginator a:hover{
     transform: scale(1.5);
@@ -238,8 +250,8 @@
 #main ul li{
     list-style-type: none;
     margin-bottom: 10px;
-    border: 1px solid crimson;
-    padding: 5px 10px;
+    border: 1px solid var(--color3);
+    padding: 15px 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -249,7 +261,7 @@
 #main ul li div *{
     display: block;
     margin-bottom: 5px;
-    color: crimson;
+    color: var(--color3);
 }
 #main ul li div label *{
     display: inline;
@@ -287,15 +299,16 @@
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    border:1px solid crimson;
+    border:1px solid var(--color3);
+    background-color: transparent;
     color: crimson;
 }
 #main form input:hover{
-    border:1px solid #CCC;
+    border:1px solid var(--color1);
 }
 #main form input:focus{
-    border:1px solid #CCC;
+    border:1px solid var(--color1);
 }
 #main form input:active{
-    border:1px solid #CCC;
+    border:1px solid var(--color1);
 }

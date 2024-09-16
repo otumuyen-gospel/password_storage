@@ -20,7 +20,9 @@ loginView();
         <label>
             <input type="submit" value="Submit">
         </label>
-        <label><a href="Javascript:signupView()">Create Account</a></label>
+        <label>
+          <a href="Javascript:signupView()">Create Account</a>
+        </label>
     </form>`;
     login();
 }

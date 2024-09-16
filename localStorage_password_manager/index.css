@@ -8,10 +8,15 @@
     font-weight: 900;
     font-size: 15px;
 }
+:root{
+    --color1:royalblue;
+    --color3:grey;
+    --bg-color1:#115;
+    --bg-color2:#116;
+
+}
 body{
-    background-image: url(bg.jpeg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: var(--bg-color2);
 }
 #header{
     width: 70%;
@@ -21,12 +26,12 @@ body{
     top: 0; bottom: 0; left: 0; right: 0;
 }
 #header h1{
-    color: #FFF;
+    color: var(--color3);
     font-size: xx-large;
     margin-bottom: 20px;
 }
 #header p{
-    color: #FFF;
+    color: var(--color3);
     font-size:12px;
     margin-bottom: 10px;
 }
@@ -40,18 +45,19 @@ body{
     left: 0;
     bottom: 0;
     z-index: 1000;
-    background-color: rgba(255, 255,255, 0.1);
+    background-color: rgba(255, 255,255, 0.01);
 }
 #messageBox{
     margin: 0px auto;
     width: 45%;
-    background-color: crimson;
+    background-color: var(--bg-color2);
     border-radius: 20px;
     padding: 40px 10px 10px 10px;
     text-align: center;
+    border: 1px solid var(--color1);
 }
 #message{
-    color: #FFF;
+    color: var(--color1);
     font-weight: bolder;
 }
 #buttons{
@@ -60,28 +66,30 @@ body{
    padding: 0 10px;
 }
 #close{
-   background-color: #FFF;
+   background-color: var(--bg-color1);
    border-radius: 30px;
    padding: 12px 20px;
    color: crimson;
 }
 #close:hover{
-    background-color: #EEE;
+    background-color: var(--bg-color2);
    
  }
+
 #main{
     width: 50%;
     padding: 20px 3%;
     position: relative;
     margin: 10px auto;
     top: 0; bottom: 0; left: 0; right: 0;
-    background-color: rgba(220, 20, 60, 0.9);
+    background-color:var(--bg-color2);
 }
 #main label{
     display: block;
     margin-bottom: 20px;
     width: 100%;
-    color: #FFF;
+    color: var(--color3);
+    text-align: center;
 }
 #main label input{
     width: 100%;
@@ -89,22 +97,27 @@ body{
     padding: 10px;
     margin-top: 20px;
     height: 50px;
-    color: #FFF;
+    color: var(--color1);
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid var(--color1);
 }
 #main label input:hover{
-    background-color: crimson;
+    border: 2px solid var(--color3);
 }
+
 #main label input:active{
-    background-color: crimson;
+    border: 2px solid var(--color3);
 }
+
 #main label input:focus{
-    background-color: crimson;
+    border: 2px solid var(--color3);
 }
-#main label a{
-    display: block;
+form label a{
     text-align: center;
-    width: 150px;
     margin-top: 20px;
+    color: var(--color3);
 }
+form label a:hover{
+    color: white;
+}
+
