@@ -376,7 +376,7 @@ function editView(index){
 /* app logic and functions */
 function showMessageBox(message){
     document.getElementById("box").classList.toggle("hidden");
-    document.getElementById("message").innerText = message;
+    document.getElementById("message").innerHTML = message;
     document.querySelector("#messageBox #buttons #close").onclick = function(){
              document.getElementById("box").classList.toggle("hidden");
     };
@@ -553,11 +553,49 @@ function deleteAccount(){
     logout();
 
 }
-function exportData(){
-
+function refactorData(array){
+    let lastId = parseInt(database[database.length-1].id);
+    for(let arr = 0; arr < array.length; arr++){
+        array[arr].owner = session[0].id;
+        lastId++;
+        array[arr].id = lastId;
+    }
+    return array;
 }
-function importData(){
-
+function importData(files){
+    if(window.FileReader) {
+        let fr = new FileReader();
+        fr.onload = function (e) {
+            const data = refactorData(JSON.parse(e.target.result));
+            let arr = [...database, ...data]; //use spread operator to concatenate arrays
+            localStorage.setItem("database", JSON.stringify(arr));
+        };
+        fr.readAsText(files[0]);
+    } else {
+        showMessageBox("No FileReader");
+    }
+}
+function exportData(){
+    let arr = []; //array of data to backup
+    for(let data = 0; data < database.length; data++){
+        dataObj = database[data];
+        if(dataObj["owner"] === session[0].id){
+            arr.push(dataObj);       
+        }
+    }
+    if(arr.length === 0){ // no record tied to this account in the database
+        showMessageBox("You don't have any data record to  backup!!!");
+        return;
+    }else{
+        let content = JSON.stringify(arr);
+        const file = new Blob([content], { type: 'json/application' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(file);
+        link.download = "database.json";
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+    
 }
 function notLoggedIn(){
     if(session.length === 0){

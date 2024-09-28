@@ -28,8 +28,11 @@
                 </div>
                 <div>
                     <p>Backup / Recovery zone</p>
-                    <button>Export Data</button>
-                    <button>Import Data</button>
+                    <button onclick="exportData()">
+                        Export Data
+                    </button>
+                    <label for="import" id="import-label">Import Data</label>
+                    <input type="file" id="import" onchange="importData(this.files)"/>
                 </div>
                
             </div>
